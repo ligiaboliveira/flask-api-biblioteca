@@ -14,7 +14,7 @@ class User(db.Model):
             'id': self.id,
             'name': self.name,
             'email': self.email,
-            'loans': [loan.to_dict() for loan in self.loans]  # Include loans if needed
+            'loans': [loan.to_dict() for loan in self.loans]
         }
 
 class Book(db.Model):
@@ -29,7 +29,7 @@ class Book(db.Model):
             'id': self.id,
             'title': self.title,
             'author': self.author,
-            'loans': [loan.to_dict() for loan in self.loans]  # Include loans if needed
+            'loans': [loan.to_dict() for loan in self.loans]
         }
 
 class Loan(db.Model):
@@ -45,6 +45,6 @@ class Loan(db.Model):
             'id': self.id,
             'book_id': self.book_id,
             'user_id': self.user_id,
-            'loan_date': self.loan_date.isoformat(),  # Format datetime as ISO string
-            'return_date': self.return_date.isoformat() if self.return_date else None  # Handle None case
+            'loan_date': self.loan_date.isoformat(),
+            'return_date': self.return_date.isoformat() if self.return_date else None
         }
