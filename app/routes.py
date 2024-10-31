@@ -4,10 +4,8 @@ from flasgger import Swagger, swag_from
 from app import db
 from app.models import User, Book, Loan
 
-# Create a blueprint for routes
 api_bp = Blueprint('api', __name__)
 
-# Initialize Swagger
 swagger = Swagger(api_bp)
 
 @api_bp.route('/users', methods=['GET'])
@@ -49,6 +47,5 @@ def list_loans():
     loans = Loan.query.all()
     return jsonify([{'id': loan.id, 'book_id': loan.book_id, 'user_id': loan.user_id, 'loan_date': loan.loan_date, 'return_date': loan.return_date} for loan in loans])
 
-# Register the blueprint with the main app
 def register_routes(app):
     app.register_blueprint(api_bp, url_prefix='/api')
