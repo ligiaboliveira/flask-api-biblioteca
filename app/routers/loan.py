@@ -140,7 +140,7 @@ def create_loan():
         book_id=data['book_id'],
         user_id=data['user_id'],
         loan_date=data['loan_date'],
-        return_date=data.get('return_date')  # Optional field
+        return_date=data.get('return_date') 
     )
     db.session.add(new_loan)
     db.session.commit()

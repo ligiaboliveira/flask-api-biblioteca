@@ -3,10 +3,9 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from dotenv import load_dotenv
-from flasgger import Swagger  # Import Swagger
+from flasgger import Swagger 
 import os
 
-# Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
@@ -16,10 +15,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-# Initialize Swagger
 swagger = Swagger(app)
 
-# Import models and register routes
 from . import models
 from .routers import api_bp
 
