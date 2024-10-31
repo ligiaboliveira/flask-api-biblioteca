@@ -1,9 +1,7 @@
-# app/routers/user.py
 from flask import jsonify
 from flasgger import swag_from
 from app import db
 from app.models import User
-from app.schemas import UserSchema  # Import the UserSchema
 from . import api_bp
 
 @api_bp.route('/users', methods=['GET'])
@@ -11,11 +9,33 @@ from . import api_bp
     'responses': {
         200: {
             'description': 'List of users',
-            'schema': UserSchema(many=True).fields,  # Use the schema
+            'schema': {
+                'type': 'array',
+                'items': {
+                    'type': 'object',
+                    'properties': {
+                        'id': {
+                            'type': 'integer',
+                            'example': 1
+                        },
+                        'name': {
+                            'type': 'string',
+                            'example': 'John Doe'
+                        },
+                        'email': {
+                            'type': 'string',
+                            'example': 'johndoe@example.com'
+                        },
+                    }
+                }
+            }
         }
     }
 })
 def list_users():
     users = User.query.all()
-    user_schema = UserSchema(many=True)  # Initialize schema for multiple users
-    return jsonify(user_schema.dump(users))  # Serialize and return
+    return jsonify([{
+        'id': user.id,
+        'name': user.name,
+        'email': user.email
+    } for user in users])
